@@ -1,38 +1,57 @@
-const { Sequelize } = require('sequelize');
+const { DataTypes, Model, Sequelize } = require('sequelize');
 const db = require('../config/database');
 
-const Book = db.define('Book', {
-    id: {
-        type: Sequelize.INTEGER,
-        autoIncrement: true,
-        primaryKey: true,
-        allowNull: false
+class Book extends Model { }
+Book.init(
+    {
+        id: {
+            type: DataTypes.INTEGER,
+            autoIncrement: true,
+            primaryKey: true,
+            allowNull: false
+        },
+        title: {
+            type: DataTypes.STRING(100),
+            allowNull: false
+        },
+        isbn: {
+            type: DataTypes.INTEGER,
+            allowNull: false
+        },
+        pageCount: {
+            type: DataTypes.INTEGER,
+            allowNull: false
+        },
+        publishedDate: {
+            type: DataTypes.DATE,
+        },
+        thumbnailUrl: {
+            type: DataTypes.STRING(255)
+        },
+        shortDescription: {
+            type: DataTypes.STRING(255)
+        },
+        status: {
+            type: DataTypes.ENUM('PUBLISHED', 'NOT PUBLISHED'),
+            allowNull: false,
+        },
+        createdAt: {
+            type: DataTypes.DATE,
+            defaultValue: Sequelize.fn('NOW'),
+            allowNull: false,
+        },
+        updatedAt: {
+            type: DataTypes.DATE,
+            defaultValue: Sequelize.fn('NOW'),
+            allowNull: false,
+        },
     },
-    title: {
-        type: Sequelize.STRING(100),
-        allowNull: false
-    },
-    isbn: {
-        type: Sequelize.INTEGER,
-        allowNull: false
-    },
-    pageCount: {
-        type: Sequelize.INTEGER,
-        allowNull: false
-    },
-    publishedDate: {
-        type: Sequelize.DATE,
-    },
-    thumbnailUrl: {
-        type: Sequelize.STRING(MAX)
-    },
-    shortDescription: {
-        type: Sequelize.STRING(MAX)
-    },
-    status: {
-        type: Sequelize.BOOLEAN,
-        allowNull: false
+    {
+        sequelize: db,
+        modelName: 'book'
     }
-});
+);
 
 module.exports = Book;
+
+// instance.updateAttributes({syncedAt: sequelize.fn('NOW')});

@@ -1,10 +1,10 @@
 const { DataTypes, Model} = require('sequelize');
 const db = require('../config/database');
 const Book = require('./book');
-const Author = require('./author');
+const Category = require('./category');
 
-class BookAuthor extends Model {}
-BookAuthor.init(
+class BookCategory extends Model {}
+BookCategory.init(
     {
         book_id: {
             type: DataTypes.INTEGER,
@@ -14,20 +14,20 @@ BookAuthor.init(
                 key: 'id'
             }
         },
-        author_id: {
+        category_id: {
             type: DataTypes.INTEGER,
             allowNull: false,
             references: {
-                model: Author,
+                model: Category,
                 key: 'id'
             }
         }
     },
     {
         sequelize: db,
-        modelName: 'book_author'
+        modelName: 'book_category'
     },
-    Book.hasMany(Author)
+    Book.hasMany(Category)
 );
 
-module.exports = BookAuthor;
+module.exports = BookCategory;
