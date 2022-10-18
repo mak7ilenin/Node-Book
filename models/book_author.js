@@ -1,4 +1,4 @@
-const { DataTypes, Model} = require('sequelize');
+const { DataTypes, Model, Sequelize } = require('sequelize');
 const db = require('../config/database');
 const Book = require('./book');
 const Author = require('./author');
@@ -21,7 +21,17 @@ BookAuthor.init(
                 model: Author,
                 key: 'id'
             }
-        }
+        },
+        createdAt: {
+            type: DataTypes.DATE,
+            defaultValue: Sequelize.fn('NOW'),
+            allowNull: false,
+        },
+        updatedAt: {
+            type: DataTypes.DATE,
+            defaultValue: Sequelize.fn('NOW'),
+            allowNull: false,
+        },
     },
     {
         sequelize: db,

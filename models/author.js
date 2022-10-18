@@ -1,4 +1,4 @@
-const { DataTypes, Model } = require('sequelize');
+const { DataTypes, Model, Sequelize } = require('sequelize');
 const db = require('../config/database');
 
 class Author extends Model {}
@@ -17,7 +17,17 @@ Author.init(
         last_name: {
             type: DataTypes.STRING(50),
             allowNull: false
-        }
+        },
+        createdAt: {
+            type: DataTypes.DATE,
+            defaultValue: Sequelize.fn('NOW'),
+            allowNull: false,
+        },
+        updatedAt: {
+            type: DataTypes.DATE,
+            defaultValue: Sequelize.fn('NOW'),
+            allowNull: false,
+        },
     },
     {
         sequelize: db,

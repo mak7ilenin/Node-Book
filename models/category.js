@@ -1,4 +1,4 @@
-const { DataTypes, Model} = require('sequelize');
+const { DataTypes, Model, Sequelize } = require('sequelize');
 const db = require('../config/database');
 
 class Category extends Model {}
@@ -13,7 +13,17 @@ Category.init(
         name: {
             type: DataTypes.STRING(30),
             allowNull: false
-        }
+        },
+        createdAt: {
+            type: DataTypes.DATE,
+            defaultValue: Sequelize.fn('NOW'),
+            allowNull: false,
+        },
+        updatedAt: {
+            type: DataTypes.DATE,
+            defaultValue: Sequelize.fn('NOW'),
+            allowNull: false,
+        },
     },
     {
         sequelize: db,
