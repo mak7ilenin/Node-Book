@@ -33,11 +33,21 @@ BookCategory.init(
             allowNull: false,
         }
     },
+    // {
+    //     indexes: [
+    //         {
+    //             unique: true,
+    //             fields: ['book_id', 'category_id']
+    //         }
+    //     ]
+    // },
     {
         sequelize: db,
         modelName: 'book_category'
     },
-    Book.hasMany(Category)
+    // Book.belongsToMany(Category, {through: BookCategory}),
+    // Category.belongsToMany(Book, {through: BookCategory})
+    // Book.hasMany(Category)
 );
 
 module.exports = BookCategory;

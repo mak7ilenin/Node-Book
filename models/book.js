@@ -53,5 +53,3 @@ Book.init(
 );
 
 module.exports = Book;
-
-// instance.updateAttributes({syncedAt: sequelize.fn('NOW')});

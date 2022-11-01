@@ -3,7 +3,7 @@ const db = require('../config/database');
 const Book = require('./book');
 const Author = require('./author');
 
-class BookAuthor extends Model {}
+class BookAuthor extends Model { }
 BookAuthor.init(
     {
         book_id: {
@@ -33,10 +33,19 @@ BookAuthor.init(
             allowNull: false,
         },
     },
+    // {
+    //     indexes: [
+    //         {
+    //             unique: true,
+    //             fields: ['book_id', 'category_id']
+    //         }
+    //     ]
+    // },
     {
         sequelize: db,
         modelName: 'book_author'
     },
+    // Book.belongsToMany(Author, {through: BookAuthor})
     Book.hasMany(Author)
 );
 

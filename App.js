@@ -1,3 +1,8 @@
+const express = require('express');
+const app = express();
+app.use(express.json());
+app.listen(3000);
+
 const db = require('./config/database');
 const books_json = require('./data/books_json');
 const createBook = require('./queries/book_queries');
@@ -26,3 +31,5 @@ async function fetchBooks() {
 fetchBooks().then(books => {
     createBook(books);
 });
+
+module.exports = app;

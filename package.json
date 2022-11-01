@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node database-init.js",
+    "start": "node App.js",
     "test": "node queries/book_queries.js"
   },
   "keywords": [],
