@@ -27,6 +27,12 @@ BookAuthor.init(
         sequelize: db,
         modelName: 'book_author',
         timestamps: true,
+        indexes: [
+            {
+                unique: true,
+                fields: ['bookId', 'authorId']
+            }
+        ]
     }
 );
 

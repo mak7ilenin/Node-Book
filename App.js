@@ -1,3 +1,4 @@
+const db = require('./config/database');
 const express = require('express');
 const app = express();
 
@@ -22,16 +23,11 @@ Author.belongsToMany(Book, { through: BookAuthor });
 Category.belongsToMany(Book, { through: BookCategory });
 // ---------------------
 
-// Books parsing
+// JSON parsing -> creation
 async function fetchBooks() {
-    // const response = await fetch('./data/books_json.json')
     const str_books_json = JSON.stringify(books_json);
     const books = JSON.parse(str_books_json);
-    await Book.sync();
-    await Category.sync();
-    await Author.sync();
-    await BookCategory.sync();
-    await BookAuthor.sync();
+    await db.sync({ force: true });
     return books
 }
 // ---------------------

@@ -2,6 +2,8 @@
 const db = require('../config/database');
 const Book = require('../models/book');
 const Category = require('../models/category');
+const Author = require('../models/author');
+const BookAuthor = require('../models/book_author');
 const BookCategory = require('../models/book_category');
 
 module.exports = async function createBook(books) {
@@ -9,7 +11,7 @@ module.exports = async function createBook(books) {
     const categories = books.map(book => book.categories);
     const authors = books.map(book => book.authors);
 
-    // Create category
+    // Create categories
     let categoriesArr = [];
     categories.forEach(el => {
         for (let i = 0; i < el.length; i++) {
@@ -26,8 +28,27 @@ module.exports = async function createBook(books) {
             where: { name: uniqCategories[i] },
         });
     }
+    // ----------------------------
 
-    // Create book
+    // Create authors
+    let authorsArr = [];
+    authors.forEach(el => {
+        for (let i = 0; i < el.length; i++) {
+            if(el[i] != '') {
+                authorsArr.push(el[i]);
+            }
+        }
+    });
+    const uniqAuthorsArr = new Set(authorsArr);
+    const uniqAuthors = Array.from(uniqAuthorsArr);
+    for (let i = 0; i < uniqAuthors.length; i++) {
+        await Author.findOrCreate({
+            where: { full_name: uniqAuthors[i] },
+        });
+    }
+    // ----------------------------
+
+    // Create books
     for (let i = 0; i < books.length; i++) {
         let book = await Book.create({
             title: typeof books[i].title !== 'undefined' ? books[i].title : '',
@@ -37,11 +58,12 @@ module.exports = async function createBook(books) {
             thumbnailUrl: typeof books[i].thumbnailUrl !== 'undefined' ? books[i].thumbnailUrl : '',
             shortDescription: typeof books[i].shortDescription !== 'undefined' ? books[i].shortDescription : '',
             longDescription: typeof books[i].longDescription !== 'undefined' ? books[i].longDescription : '',
-            status: typeof books[i].status !== 'undefined' ? books[i].status : ''
+            status: typeof books[i].status !== 'undefined' ? books[i].status : '',
         });
 
+        // Book categories references
         for(let item of categories[i]) {
-            if(item !== '') {
+            if(item != "") {
                 item = item.charAt(0).toUpperCase() + item.slice(1);
                 let category = await Category.findOne({
                     where: { name: item },
@@ -54,6 +76,25 @@ module.exports = async function createBook(books) {
                         categoryId: category.id,
                     }
                 });
+            }
+        }
+
+        // Book authors references
+        for(let item of authors[i]) {
+            if(item != "") {
+                let author = await Author.findOne({
+                    where: { full_name: item },
+                    attributes: ['id'],
+                    raw: true
+                });
+                if(author != null) {
+                    await BookAuthor.findOrCreate({
+                        where: {
+                            bookId: book.id, 
+                            authorId: author.id,
+                        }
+                    });
+                }
             }
         }
     }
