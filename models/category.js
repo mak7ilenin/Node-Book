@@ -14,20 +14,11 @@ Category.init(
             type: DataTypes.STRING(30),
             allowNull: false
         },
-        createdAt: {
-            type: DataTypes.DATE,
-            defaultValue: Sequelize.fn('NOW'),
-            allowNull: false,
-        },
-        updatedAt: {
-            type: DataTypes.DATE,
-            defaultValue: Sequelize.fn('NOW'),
-            allowNull: false,
-        },
     },
     {
         sequelize: db,
-        modelName: 'category'
+        modelName: 'category',
+        timestamps: true,
     }
 );
 

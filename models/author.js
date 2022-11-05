@@ -8,7 +8,6 @@ Author.init(
             type: DataTypes.INTEGER,
             autoIncrement: true,
             primaryKey: true,
-            allowNull: false
         },
         first_name: {
             type: DataTypes.STRING(50),
@@ -18,20 +17,11 @@ Author.init(
             type: DataTypes.STRING(50),
             allowNull: false
         },
-        createdAt: {
-            type: DataTypes.DATE,
-            defaultValue: Sequelize.fn('NOW'),
-            allowNull: false,
-        },
-        updatedAt: {
-            type: DataTypes.DATE,
-            defaultValue: Sequelize.fn('NOW'),
-            allowNull: false,
-        },
     },
     {
         sequelize: db,
-        modelName: 'author'
+        modelName: 'author',
+        timestamps: true,
     }
 );
 

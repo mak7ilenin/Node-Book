@@ -1,4 +1,4 @@
-const { DataTypes, Model, Sequelize } = require('sequelize');
+const { DataTypes, Model } = require('sequelize');
 const db = require('../config/database');
 const Book = require('./book');
 const Category = require('./category');
@@ -6,7 +6,7 @@ const Category = require('./category');
 class BookCategory extends Model {}
 BookCategory.init(
     {
-        book_id: {
+        bookId: {
             type: DataTypes.INTEGER,
             allowNull: false,
             references: {
@@ -14,7 +14,7 @@ BookCategory.init(
                 key: 'id'
             }
         },
-        category_id: {
+        categoryId: {
             type: DataTypes.INTEGER,
             allowNull: false,
             references: {
@@ -22,32 +22,18 @@ BookCategory.init(
                 key: 'id'
             }
         },
-        createdAt: {
-            type: DataTypes.DATE,
-            defaultValue: Sequelize.fn('NOW'),
-            allowNull: false,
-        },
-        updatedAt: {
-            type: DataTypes.DATE,
-            defaultValue: Sequelize.fn('NOW'),
-            allowNull: false,
-        }
     },
-    // {
-    //     indexes: [
-    //         {
-    //             unique: true,
-    //             fields: ['book_id', 'category_id']
-    //         }
-    //     ]
-    // },
     {
         sequelize: db,
-        modelName: 'book_category'
-    },
-    // Book.belongsToMany(Category, {through: BookCategory}),
-    // Category.belongsToMany(Book, {through: BookCategory})
-    // Book.hasMany(Category)
+        modelName: 'book_category',
+        timestamps: true,
+        indexes: [
+            {
+                unique: true,
+                fields: ['bookId', 'categoryId']
+            }
+        ]
+    }
 );
 
 module.exports = BookCategory;
