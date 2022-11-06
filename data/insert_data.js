@@ -65,7 +65,7 @@ module.exports = async function createBooks(books) {
                     thumbnailUrl: typeof books[i].thumbnailUrl !== 'undefined' ? books[i].thumbnailUrl : '',
                     shortDescription: typeof books[i].shortDescription !== 'undefined' ? books[i].shortDescription : '',
                     longDescription: typeof books[i].longDescription !== 'undefined' ? books[i].longDescription : '',
-                    status: typeof books[i].status !== 'undefined' ? books[i].status : '',
+                    status: typeof books[i].status !== 'undefined' ? books[i].status : 'NOT PUBLISHED',
                 });
             }
     

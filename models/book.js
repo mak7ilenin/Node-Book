@@ -34,8 +34,8 @@ Book.init(
             type: DataTypes.STRING(255)
         },
         status: {
-            type: DataTypes.ENUM('PUBLISHED', 'NOT PUBLISHED'),
-            defaultValue: 'NOT PUBLISHED'
+            type: DataTypes.ENUM('PUBLISH', 'NOT PUBLISH'),
+            defaultValue: 'NOT PUBLISH'
         },
     },
     {
