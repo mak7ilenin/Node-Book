@@ -1,9 +1,15 @@
-const db = require('./config/database');
+// Routing
 const express = require('express');
 const app = express();
+const router = require('./routes/router');
 
+app.use('/', router);
+app.listen(3000);
+// -------------------
+
+const db = require('./config/database');
 const books_json = require('./data/books_json');
-const createBook = require('./queries/book_queries');
+const createBooks = require('./data/insert_data');
 
 // Initialize models
 let Category = require('./models/category');
@@ -27,16 +33,9 @@ Category.belongsToMany(Book, { through: BookCategory });
 async function fetchBooks() {
     const str_books_json = JSON.stringify(books_json);
     const books = JSON.parse(str_books_json);
-    await db.sync({ force: true });
+    await db.sync({ alter: true });
     return books
 }
-// ---------------------
 fetchBooks().then(books => {
-    createBook(books);
+    createBooks(books);
 });
-
-// Connect to port(3000)
-app.use(express.json());
-app.listen(3000);
-
-module.exports = app;

@@ -14,12 +14,12 @@ Book.init(
             allowNull: false
         },
         isbn: {
-            type: DataTypes.INTEGER,
-            allowNull: false
+            type: DataTypes.BIGINT,
+            allowNull: false,
+            unique: true
         },
         pageCount: {
             type: DataTypes.INTEGER,
-            allowNull: false
         },
         publishedDate: {
             type: DataTypes.DATE,
@@ -35,7 +35,7 @@ Book.init(
         },
         status: {
             type: DataTypes.ENUM('PUBLISHED', 'NOT PUBLISHED'),
-            allowNull: false,
+            defaultValue: 'NOT PUBLISHED'
         },
     },
     {
