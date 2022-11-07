@@ -5,12 +5,13 @@ const cors = require('cors');
 // Routing
 const app = express();
 const router = express.Router();
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors());
-app.use('/', router);
 
-require('./routes/categoriesRoute')(app, router);
+require('./routes/categoriesRoute')(app);
+require('./routes/booksRoute')(app);
+require('./routes/authorsRoute')(app);
 
 app.listen(3000);
 // -------------------
@@ -47,5 +48,5 @@ fetchBooks().then(books => {
 // -------------------------
 
 // Swagger configuration
-const initSwagger = require('./config/swagger');
-initSwagger(app);
+// const initSwagger = require('./config/swagger');
+// initSwagger(app);
