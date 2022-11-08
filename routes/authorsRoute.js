@@ -24,7 +24,10 @@ module.exports = app => {
     router.get('/', authors.findAll);
     // Create new author
     router.post('/', authors.create);
-
+    // Delete author
+    router.delete('/', authors.delete);
+    // Update author
+    router.put('/', authors.update);
     // /**
     // * @swagger
     // * /api/authors:

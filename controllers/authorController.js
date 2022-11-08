@@ -11,7 +11,7 @@ exports.create = (req, res) => {
     
     // Create author
     const author = {
-        name: req.body.full_name,
+        full_name: req.body.full_name,
     };
     
     // Save author
@@ -34,4 +34,44 @@ exports.findAll = (req, res) => {
                 message: err.message || 'Unable to get authors!'
             })
         })
+}
+
+exports.delete = (req, res) => {
+    if (!req.body.id) {
+        res.status(400).send({
+            message: 'No author selected!'
+        });
+        return;
+    }
+
+    // Author delete
+    Author.destroy({
+        where: {
+            id: req.body.id
+        },
+        force: true
+    })
+    .then(res.status(200).send({
+        message: `Author ${req.body.id} deleted!`
+    }))
+    .catch(err => {
+        res.status(500).send({
+            message: err.message || 'Unable to delete author!'
+        });
+    });
+}
+
+exports.update = (req, res) => {
+    Author.upsert({
+        id: req.body.id,
+        full_name: req.body.full_name,
+    })
+    .then(data => {
+        res.send(data);
+    })
+    .catch(err => {
+        res.status(500).send({
+            message: err.message || 'Unable to update author!'
+        });
+    });
 }

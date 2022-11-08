@@ -40,7 +40,10 @@ module.exports = app => {
     router.get('/', books.findAll);
     // Create new book
     router.post('/', books.create);
-
+    // Delete book
+    router.delete('/', books.delete);
+    // Update book
+    router.put('/', books.update);
     // /**
     // * @swagger
     // * /api/books:

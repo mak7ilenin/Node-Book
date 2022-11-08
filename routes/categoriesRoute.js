@@ -24,7 +24,10 @@ module.exports = app => {
     router.get('/', categories.findAll);
     // Create new category
     router.post('/', categories.create);
-
+    // Delete category
+    router.delete('/', categories.delete);
+    // Update category
+    router.put('/', categories.update);
     // /**
     // * @swagger
     // * /api/categories:
