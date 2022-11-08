@@ -6,6 +6,12 @@ const Author = require('./author');
 class BookAuthor extends Model {}
 BookAuthor.init(
     {
+        id: {
+            type: DataTypes.INTEGER,
+            autoIncrement: true,
+            primaryKey: true,
+            allowNull: false
+        },
         bookId: {
             type: DataTypes.INTEGER,
             allowNull: false,
@@ -27,6 +33,7 @@ BookAuthor.init(
         sequelize: db,
         modelName: 'book_author',
         timestamps: true,
+        paranoid: true,
         indexes: [
             {
                 unique: true,

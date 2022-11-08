@@ -6,6 +6,12 @@ const Category = require('./category');
 class BookCategory extends Model {}
 BookCategory.init(
     {
+        id: {
+            type: DataTypes.INTEGER,
+            autoIncrement: true,
+            primaryKey: true,
+            allowNull: false
+        },
         bookId: {
             type: DataTypes.INTEGER,
             allowNull: false,
@@ -27,6 +33,7 @@ BookCategory.init(
         sequelize: db,
         modelName: 'book_category',
         timestamps: true,
+        paranoid: true,
         indexes: [
             {
                 unique: true,

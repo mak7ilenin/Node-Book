@@ -1,78 +1,80 @@
-const Author = require('../models/author');
+const BookAuthor = require('../models/book_author');
 
-// Create author
+// Create book author
 exports.create = (req, res) => {
-    if(!req.body.full_name) {
+    if (!req.body.book_id || !req.body.author_id) {
         res.status(400).send({
             message: 'Content can not be empty!'
         });
         return;
     }
-    
-    // Create author
-    const author = {
-        full_name: req.body.full_name,
+
+    // Create book author
+    const book_author = {
+        book_id: req.body.book_id,
+        author_id: req.body.author_id
     };
-    
-    // Save author
-    Author.create(author)
+
+    // Save book author
+    BookAuthor.create(book_author)
         .then(data => {
             res.send(data);
         }).catch(err => {
             res.status(500).send({
-                message: err.message || 'Unable to create author!'
+                message: err.message || 'Unable to create book author!'
             });
         });
 }
 
-// Get all authors
+// Get all book authors
 exports.findAll = (req, res) => {
-    Author.findAll()
+    BookAuthor.findAll()
         .then(data => {
             res.send(data);
         }).catch(err => {
             res.status(500).send({
-                message: err.message || 'Unable to get authors!'
+                message: err.message || 'Unable to get book authors!'
             })
         })
 }
 
-// Author delete
+// Book author delete
 exports.delete = (req, res) => {
     if (!req.body.id) {
         res.status(400).send({
-            message: 'No author selected!'
+            message: 'No book author category selected!'
         });
         return;
     }
 
-    Author.destroy({
+    BookAuthor.destroy({
         where: {
             id: req.body.id
         }
     })
     .then(res.status(200).send({
-        message: `Author ${req.body.id} deleted!`
+        message: `Book author ${req.body.id} deleted!`
     }))
     .catch(err => {
         res.status(500).send({
-            message: err.message || 'Unable to delete author!'
+            message: err.message || 'Unable to delete book author!'
         });
     });
 }
 
-// Author update
+// Book author update
 exports.update = (req, res) => {
-    Author.upsert({
+    BookAuthor.upsert({
         id: req.body.id,
-        full_name: req.body.full_name,
+        book_id: req.body.book_id,
+        author_id: req.body.author_id
     })
     .then(data => {
         res.send(data);
     })
     .catch(err => {
         res.status(500).send({
-            message: err.message || 'Unable to update author!'
+            message: err.message || 'Unable to update book author!'
         });
     });
 }

@@ -4,14 +4,15 @@ const cors = require('cors');
 
 // Routing
 const app = express();
-const router = express.Router();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 require('./routes/categoriesRoute')(app);
-require('./routes/booksRoute')(app);
 require('./routes/authorsRoute')(app);
+require('./routes/booksRoute')(app);
+require('./routes/bookAuthorRoute')(app);
+require('./routes/bookCategoryRoute')(app);
 
 app.listen(3000);
 // -------------------

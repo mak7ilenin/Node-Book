@@ -42,6 +42,7 @@ Book.init(
         sequelize: db,
         modelName: 'book',
         timestamps: false,
+        paranoid: true,
     }
 );
 

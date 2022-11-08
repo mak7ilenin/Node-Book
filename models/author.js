@@ -19,6 +19,7 @@ Author.init(
         sequelize: db,
         modelName: 'author',
         timestamps: true,
+        paranoid: true,
     }
 );
 

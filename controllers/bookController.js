@@ -1,6 +1,6 @@
 const Book = require('../models/book');
 
-// Create method for book
+// Create book
 exports.create = (req, res) => {
     if (!req.body.title || !req.body.isbn) {
         res.status(400).send({
@@ -32,6 +32,7 @@ exports.create = (req, res) => {
         });
 }
 
+// Get all books
 exports.findAll = (req, res) => {
     Book.findAll()
         .then(data => {
@@ -43,6 +44,7 @@ exports.findAll = (req, res) => {
         })
 }
 
+// Book delete
 exports.delete = (req, res) => {
     if (!req.body.id) {
         res.status(400).send({
@@ -51,12 +53,10 @@ exports.delete = (req, res) => {
         return;
     }
 
-    // Book delete
     Book.destroy({
         where: {
             id: req.body.id
-        },
-        force: true
+        }
     })
     .then(res.status(200).send({
         message: `Book ${req.body.id} deleted!`
@@ -68,6 +68,7 @@ exports.delete = (req, res) => {
     });
 }
 
+// Update book
 exports.update = (req, res) => {
     Book.upsert({
         id: req.body.id,

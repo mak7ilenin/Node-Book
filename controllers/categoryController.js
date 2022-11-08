@@ -1,6 +1,6 @@
 const Category = require('../models/category');
 
-// Get all
+// Get all categories
 exports.findAll = (req, res) => {
     Category.findAll()
         .then(data => {
@@ -12,7 +12,7 @@ exports.findAll = (req, res) => {
         })
 }
 
-// Create
+// Create category
 exports.create = (req, res) => {
     if (!req.body.name) {
         res.status(400).send({
@@ -37,6 +37,7 @@ exports.create = (req, res) => {
         });
 }
 
+// Category delete
 exports.delete = (req, res) => {
     if (!req.body.id) {
         res.status(400).send({
@@ -45,12 +46,10 @@ exports.delete = (req, res) => {
         return;
     }
 
-    // Category delete
     Category.destroy({
         where: {
             id: req.body.id
-        },
-        force: true
+        }
     })
     .then(res.status(200).send({
         message: `Category ${req.body.id} deleted!`
@@ -62,6 +61,7 @@ exports.delete = (req, res) => {
     });
 }
 
+// Update category
 exports.update = (req, res) => {
     Category.upsert({
         id: req.body.id,
