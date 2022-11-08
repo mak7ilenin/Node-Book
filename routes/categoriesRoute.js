@@ -28,6 +28,11 @@ module.exports = app => {
     router.delete('/', categories.delete);
     // Update category
     router.put('/', categories.update);
+    // --------------------------------
+
+    // Get categories and books amount in each category
+    router.get('/b-count', categories.getBooksCountInCategory)
+
     // /**
     // * @swagger
     // * /api/categories:

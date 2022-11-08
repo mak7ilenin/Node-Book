@@ -17,7 +17,7 @@ require('./routes/bookCategoryRoute')(app);
 app.listen(3000);
 // -------------------
 
-// Models references
+// Models relations
 let Category = require('./models/category');
 let Book = require('./models/book');
 let Author = require('./models/author');

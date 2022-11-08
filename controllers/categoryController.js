@@ -1,4 +1,5 @@
 const Category = require('../models/category');
+const BookCategory = require('../models/book_category');
 
 // Get all categories
 exports.findAll = (req, res) => {
@@ -75,4 +76,25 @@ exports.update = (req, res) => {
             message: err.message || 'Unable to update category!'
         });
     });
+}
+
+// Get categories and books amount in each category
+exports.getBooksCountInCategory = async (req, res) => {
+    let categories = null;
+    await Category.findAll({
+        attributes: ['id', 'name'],
+    })
+    .then(data => {
+        let jsonStr = JSON.stringify(data);
+        categories = JSON.parse(jsonStr);
+    })
+    for (let i = 0; i < categories.length; i++) {
+        await BookCategory.count({
+            where: { categoryId: categories[i].id }
+        })
+        .then(data => {
+            categories[i].books_count = data;
+        })
+    }
+    res.send(categories);
 }
