@@ -1,5 +1,5 @@
 module.exports = app => {
-    const bookAuthor = require('../controllers/bookAuthorController');
+    const bookAuthor = require('../../controllers/bookAuthorController');
     const router = require('express').Router();
 
     // Get all book authors

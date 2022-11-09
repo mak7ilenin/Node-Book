@@ -33,7 +33,7 @@
 // *               isbn: 1231231232
 // */
 module.exports = app => {
-    const books = require('../controllers/bookController');
+    const books = require('../../controllers/bookController');
     const router = require('express').Router();
 
     // Get all books

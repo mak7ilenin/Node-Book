@@ -8,11 +8,17 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-require('./routes/categoriesRoute')(app);
-require('./routes/authorsRoute')(app);
-require('./routes/booksRoute')(app);
-require('./routes/bookAuthorRoute')(app);
-require('./routes/bookCategoryRoute')(app);
+require('./routes/api/categoriesRoute')(app);
+require('./routes/api/authorsRoute')(app);
+require('./routes/api/booksRoute')(app);
+require('./routes/api/bookAuthorRoute')(app);
+require('./routes/api/bookCategoryRoute')(app);
+
+require('./routes/view/categoriesRoute')(app);
+require('./routes/view/authorsRoute')(app);
+require('./routes/view/booksRoute')(app);
+require('./routes/view/bookAuthorRoute')(app);
+require('./routes/view/bookCategoryRoute')(app);
 
 app.listen(3000);
 // -------------------
@@ -51,3 +57,12 @@ fetchBooks().then(books => {
 // Swagger configuration
 // const initSwagger = require('./config/swagger');
 // initSwagger(app);
+// ------------------
+
+// HTTP configuration
+const content = null;
+app.get('/', function(req, res) {
+    res.sendFile('./layout.html');
+    content = document.getElementById('#content');
+    module.exports.content = content;
+});

@@ -85,6 +85,7 @@ exports.getBooksCountInCategory = async (req, res) => {
         attributes: ['id', 'name'],
     })
     .then(data => {
+        console.log(data);
         let jsonStr = JSON.stringify(data);
         categories = JSON.parse(jsonStr);
     })

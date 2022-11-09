@@ -17,7 +17,7 @@
 // *               name: RESTful API
 // */
 module.exports = app => {
-    const authors = require('../controllers/authorController');
+    const authors = require('../../controllers/authorController');
     const router = require('express').Router();
 
     // Get all authors

@@ -17,7 +17,7 @@
 // *               name: Open Source
 // */
 module.exports = app => {
-    const categories = require('../controllers/categoryController');
+    const categories = require('../../controllers/categoryController');
     const router = require('express').Router();
 
     // Get all categories

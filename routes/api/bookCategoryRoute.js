@@ -1,5 +1,5 @@
 module.exports = app => {
-    const bookCategory = require('../controllers/bookCategoryController');
+    const bookCategory = require('../../controllers/bookCategoryController');
     const router = require('express').Router();
 
     // Get all book categories
