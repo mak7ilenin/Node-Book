@@ -1,5 +1,5 @@
 module.exports = app => {
-    const booksView = require('../../views/viewBooks');
+    const booksView = require('../../controllers/views/viewBooks');
     const books = require('../../controllers/bookController');
     const router = require('express').Router();
 

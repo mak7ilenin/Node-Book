@@ -1,0 +1,13 @@
+html 
+    head 
+        title=title 
+        style 
+            include ../public/css/styles.css
+    body 
+        h2=heading
+        div(class="books_container")
+            each book in books ? books : ['There are no books!']
+                div(class="book_container") 
+                    h3=book.title 
+                    hr
+                    img(class="book__poster" src=book.thumbnailUrl)

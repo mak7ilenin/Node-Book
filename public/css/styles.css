@@ -1,0 +1,32 @@
+h2 {
+  padding-top: 40px;
+  text-align: center;
+  font-size: 38px;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+
+.books_container {
+  width: 85%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+
+.book_container {
+  width: 400px;
+  margin: 35px auto;
+  background-color: #ccc;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.7);
+}
+.book_container h3 {
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  font-size: 28px;
+  margin: 0;
+  text-align: center;
+}
+.book_container .book__poster {
+  width: 100%;
+}/*# sourceMappingURL=styles.css.map */

@@ -7,6 +7,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.set('view engine', 'pug');
 
 require('./routes/api/categoriesRoute')(app);
 require('./routes/api/authorsRoute')(app);
@@ -14,11 +15,11 @@ require('./routes/api/booksRoute')(app);
 require('./routes/api/bookAuthorRoute')(app);
 require('./routes/api/bookCategoryRoute')(app);
 
-require('./routes/view/categoriesRoute')(app);
-require('./routes/view/authorsRoute')(app);
-require('./routes/view/booksRoute')(app);
-require('./routes/view/bookAuthorRoute')(app);
-require('./routes/view/bookCategoryRoute')(app);
+require('./routes/views/categoriesRoute')(app);
+require('./routes/views/authorsRoute')(app);
+require('./routes/views/booksRoute')(app);
+require('./routes/views/bookAuthorRoute')(app);
+require('./routes/views/bookCategoryRoute')(app);
 
 app.listen(3000);
 // -------------------
@@ -59,10 +60,7 @@ fetchBooks().then(books => {
 // initSwagger(app);
 // ------------------
 
-// HTTP configuration
-const content = null;
+// Layout access
 app.get('/', function(req, res) {
-    res.sendFile('./layout.html');
-    content = document.getElementById('#content');
-    module.exports.content = content;
+    res.render('index', { title: 'Books Database Application', message: 'Books Database Application' });
 });
