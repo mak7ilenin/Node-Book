@@ -6,7 +6,7 @@ module.exports = app => {
     // Get all books
     router.get('/', booksView.findAll);
     // Create new book
-    router.post('/', books.create);
+    router.get('/new', booksView.createBook);
     // Delete book
     router.delete('/', books.delete);
     // Update book

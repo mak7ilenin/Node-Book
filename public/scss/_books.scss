@@ -13,11 +13,13 @@ h2 {
 }
 .book_container {
     width: 400px;
+    height: 570px;
     margin: 35px auto;
     background-color: #ccc;
     padding: 10px;
     border-radius: 5px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.7);
+    overflow: hidden;
     h3 {
         font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
         font-size: 28px;
@@ -26,5 +28,6 @@ h2 {
     }
     .book__poster {
         width: 100%;
+        object-fit: cover;
     }
 }

@@ -1,0 +1,13 @@
+html 
+    head 
+        title='Create a new Book' 
+    body 
+        form(action="/books", method="POST") 
+            input(type="text" name="title")
+            input(type="number" name="isbn")
+            input(type="number" name="pageCount")
+            input(type="date" name="publishedDate")
+            input(type="text" name="thumbnailUrl")
+            input(type="text" name="longDescription")
+            input(type="text" name="shortDescription")
+            input(type="text" name="status")
