@@ -13,11 +13,11 @@ module.exports = app => {
     // ---------------------------
 
     // Get books by title
-    router.get('/title', books.getByTitle);
+    router.get('/title/:title', books.getByTitle);
     // Get books by author(id)
-    router.get('/author-id', books.getByAuthorId);
+    router.get('/author-id/:authorId', books.getByAuthorId);
     // Get books by category
-    router.get('/category', books.getByCategory);
+    router.get('/category/:category', books.getByCategory);
     
     app.use('/api/books', router)
 }

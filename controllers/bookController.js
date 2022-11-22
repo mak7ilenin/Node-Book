@@ -1,11 +1,12 @@
 const Book = require('../models/book');
 const Author = require('../models/author');
 const Category = require('../models/category');
+const BookCategory = require('../models/book_category');
 const Sequelize = require('sequelize');
 const Operator = Sequelize.Op;
 
 // Create book
-exports.create = (req, res) => {
+exports.create = async (req, res) => {
     if (!req.body.title || !req.body.isbn) {
         res.status(400).send({
             message: 'Content can not be empty!'
@@ -22,18 +23,39 @@ exports.create = (req, res) => {
         thumbnailUrl: req.body.thumbnailUrl,
         shortDescription: req.body.shortDescription,
         longDescription: req.body.longDescription,
-        status: req.body.status,
+        status: req.body.status
     };
 
     // Save book
-    Book.create(book)
-        .then(data => {
+    await Book.create(book)
+        .then(() => {
             res.send(data);
-        }).catch(err => {
+        })
+        .catch(err => {
             res.status(500).send({
                 message: err.message || 'Unable to create book!'
             });
         });
+
+    // const thisBook = await Book.findOne({
+    //     where: { isbn: req.body.isbn },
+    //     attributes: ['id']
+    // });
+    // let categories = req.body.categories;
+    // let category = null;
+    // for (let i = 0; i < categories.length; i++) { 
+    //     category = await Category.findOne({
+    //         where: {
+    //             name: categories[i]
+    //         }
+    //     });
+    // }
+    // if(category != null) {
+    //     BookCategory.create({
+    //         bookId: thisBook.id,
+    //         categoryId: category.id
+    //     })
+    // }
 }
 
 // Get all books
@@ -50,7 +72,7 @@ exports.findAll = (req, res) => {
 
 // Book delete
 exports.delete = (req, res) => {
-    if (!req.body.id) {
+    if (!req.params.id) {
         res.status(400).send({
             message: 'No book selected!'
         });
@@ -59,11 +81,11 @@ exports.delete = (req, res) => {
 
     Book.destroy({
         where: {
-            id: req.body.id
+            id: req.params.id
         }
     })
     .then(res.status(200).send({
-        message: `Book ${req.body.id} deleted!`
+        message: `Book ${req.params.id} deleted!`
     }))
     .catch(err => {
         res.status(500).send({
@@ -97,7 +119,7 @@ exports.update = (req, res) => {
 
 // Get books by title
 exports.getByTitle = (req, res) => {
-    if(!req.body.title) {
+    if(!req.params.title) {
         res.status(400).send({
             message: 'No title provided!'
         });
@@ -105,7 +127,7 @@ exports.getByTitle = (req, res) => {
     }
     Book.findAll({
         where: {
-            title: { [Operator.like]: `%${req.body.title}%` }
+            title: { [Operator.like]: `%${req.params.title}%` }
         }
     })
     .then(data => {
@@ -120,7 +142,7 @@ exports.getByTitle = (req, res) => {
 
 // Get books by author
 exports.getByAuthorId = (req, res) => {
-    if(!req.body.authorId) {
+    if(!req.params.authorId) {
         res.status(400).send({
             message: 'No author id provided!'
         });
@@ -131,7 +153,7 @@ exports.getByAuthorId = (req, res) => {
             {
                 model: Author,
                 where: {
-                    id: req.body.authorId 
+                    id: req.params.authorId 
                 }
             }
         ]
@@ -148,14 +170,14 @@ exports.getByAuthorId = (req, res) => {
 
 // Get books by category
 exports.getByCategory = async (req, res) => {
-    if(!req.body.category) {
+    if(!req.params.category) {
         res.status(400).send({
             message: 'No category id provided!'
         });
         return;
     }
     const category = await Category.findOne({
-        where: { name: req.body.category },
+        where: { name: req.params.category },
         attributes: ['id']
     });
     Book.findAll({

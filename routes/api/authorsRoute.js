@@ -7,7 +7,7 @@ module.exports = app => {
     // Create new author
     router.post('/', authors.create);
     // Delete author
-    router.delete('/', authors.delete);
+    router.delete('/:id', authors.delete);
     // Update author
     router.put('/', authors.update);
     

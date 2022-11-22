@@ -40,7 +40,7 @@ exports.create = (req, res) => {
 
 // Category delete
 exports.delete = (req, res) => {
-    if (!req.body.id) {
+    if (!req.params.id) {
         res.status(400).send({
             message: 'No category selected!'
         });
@@ -49,11 +49,11 @@ exports.delete = (req, res) => {
 
     Category.destroy({
         where: {
-            id: req.body.id
+            id: req.params.id
         }
     })
     .then(res.status(200).send({
-        message: `Category ${req.body.id} deleted!`
+        message: `Category ${req.params.id} deleted!`
     }))
     .catch(err => {
         res.status(500).send({
@@ -85,7 +85,6 @@ exports.getBooksCountInCategory = async (req, res) => {
         attributes: ['id', 'name'],
     })
     .then(data => {
-        console.log(data);
         let jsonStr = JSON.stringify(data);
         categories = JSON.parse(jsonStr);
     })

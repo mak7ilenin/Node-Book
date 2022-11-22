@@ -39,7 +39,7 @@ exports.findAll = (req, res) => {
 
 // Author delete
 exports.delete = (req, res) => {
-    if (!req.body.id) {
+    if (!req.params.id) {
         res.status(400).send({
             message: 'No author selected!'
         });
@@ -48,11 +48,11 @@ exports.delete = (req, res) => {
 
     Author.destroy({
         where: {
-            id: req.body.id
+            id: req.params.id
         }
     })
     .then(res.status(200).send({
-        message: `Author ${req.body.id} deleted!`
+        message: `Author ${req.params.id} deleted!`
     }))
     .catch(err => {
         res.status(500).send({
